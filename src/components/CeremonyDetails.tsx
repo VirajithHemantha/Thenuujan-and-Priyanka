@@ -30,7 +30,7 @@ export const CeremonyDetails: React.FC = () => {
             </h2>
 
             <p className="text-stone-500/90 font-serif text-lg sm:text-xl leading-relaxed mb-16 max-w-lg">
-              We are honored to invite you to witness our union as we exchange vows at Hilton Colombo, surrounded by the warmth of our loved ones.
+              We are honored to invite you to witness our union at Nadsathiramahal Wedding Hall, Kodikamam, surrounded by the warmth of our loved ones.
             </p>
 
             {/* Premium Timeline */}
@@ -42,7 +42,7 @@ export const CeremonyDetails: React.FC = () => {
                   <Calendar className="w-5 h-5 text-brand-beige-deep group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-2xl sm:text-3xl text-stone-800 mb-2 group-hover:text-brand-beige-deep transition-colors duration-500">Tuesday, January 05</h4>
+                  <h4 className="font-serif text-2xl sm:text-3xl text-stone-800 mb-2 group-hover:text-brand-beige-deep transition-colors duration-500">Wednesday, January 27</h4>
                   <p className="text-stone-500/80 text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-bold">The Year Two Thousand Twenty Seven</p>
                 </div>
               </div>
@@ -54,7 +54,7 @@ export const CeremonyDetails: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-serif text-2xl sm:text-3xl text-stone-800 mb-2 group-hover:text-brand-beige-deep transition-colors duration-500">09:00 AM</h4>
-                  <p className="text-stone-500/80 text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-bold">Wedding Ceremony — Hilton, Colombo</p>
+                  <p className="text-stone-500/80 text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-bold">Wedding Ceremony — Followed by Lunch</p>
                 </div>
               </div>
 
@@ -64,8 +64,8 @@ export const CeremonyDetails: React.FC = () => {
                   <MapPin className="w-5 h-5 text-brand-beige-deep group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-2xl sm:text-3xl text-stone-800 mb-2 group-hover:text-brand-beige-deep transition-colors duration-500">Hilton Colombo</h4>
-                  <p className="text-stone-500/80 text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-bold">Colombo</p>
+                  <h4 className="font-serif text-2xl sm:text-3xl text-stone-800 mb-2 group-hover:text-brand-beige-deep transition-colors duration-500">Nadsathiramahal Wedding Hall</h4>
+                  <p className="text-stone-500/80 text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-bold">A9 Road, Kodikamam</p>
                 </div>
               </div>
             </div>
@@ -119,13 +119,13 @@ export const CeremonyDetails: React.FC = () => {
                 <Sparkles className="w-4 h-4 text-brand-gold animate-pulse flex-shrink-0" />
               </div>
               <div className="flex-1">
-                <h4 className="font-display text-2xl sm:text-4xl text-stone-800 mb-1 sm:mb-2 tracking-tight">The Celebration</h4>
+                <h4 className="font-display text-2xl sm:text-4xl text-stone-800 mb-1 sm:mb-2 tracking-tight">Reception Party</h4>
                 <p className="text-stone-500/90 font-serif text-sm sm:text-base leading-relaxed">
-                  Followed by a grand celebratory buffet and festivities at Hilton Colombo.
+                  An evening of dinner and festivities at Ashlyn & Abigail Mango Mansion, A9 Road, Mirusuvil.
                 </p>
               </div>
               <div className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-brand-champagne rounded-full border border-brand-beige/30 shadow-sm self-start sm:self-center flex-shrink-0">
-                <span className="text-brand-beige-deep font-sans font-bold tracking-[0.1em] sm:tracking-[0.2em] text-[9px] sm:text-[11px] uppercase block drop-shadow-sm">10:00 AM Onwards</span>
+                <span className="text-brand-beige-deep font-sans font-bold tracking-[0.1em] sm:tracking-[0.2em] text-[9px] sm:text-[11px] uppercase block drop-shadow-sm">06:00 PM Onwards</span>
               </div>
             </div>
           </motion.div>

@@ -1,36 +1,44 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle, Loader2, Heart, Sparkles } from 'lucide-react';
+import { submitToSheet } from '../config';
+
+const ATTENDANCE_OPTIONS = [
+  'Attending Ceremony & Reception',
+  'Attending Ceremony Only',
+  'Attending Reception Only',
+  'Regretfully Unable to Attend',
+];
+
+const emptyForm = {
+  fullName: '',
+  phone: '',
+  attendance: ATTENDANCE_OPTIONS[0],
+  guests: '1',
+  dietaryNotes: '',
+};
 
 export const RSVPForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    guests: '1',
-    dietaryNotes: '',
-  });
+  const [formData, setFormData] = useState(emptyForm);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const isDeclining = formData.attendance === ATTENDANCE_OPTIONS[3];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
 
     try {
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycbyay20jbF63BRUj8JGGbUbYkYS3Us-DpLZc2Hs34si_qKJgxs_81xpNBniXsBNFsYOt7g/exec';
-      const payload = new FormData();
-      payload.append('sheet', 'RSVP');
-      payload.append('name', formData.fullName);
-      payload.append('guests', formData.guests);
-      payload.append('dietary', formData.dietaryNotes);
-      payload.append('attendance', 'Yes');
-
-      await fetch(scriptUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: payload,
+      await submitToSheet({
+        sheet: 'RSVP',
+        name: formData.fullName,
+        phone: formData.phone,
+        attendance: formData.attendance,
+        guests: isDeclining ? '0' : formData.guests,
+        dietary: formData.dietaryNotes,
       });
 
       setStatus('success');
-      setFormData({ fullName: '', guests: '1', dietaryNotes: '' });
+      setFormData(emptyForm);
     } catch (error) {
       console.error('Error sending RSVP: ', error);
       setStatus('error');
@@ -121,6 +129,37 @@ export const RSVPForm: React.FC = () => {
                 </div>
 
                 <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Phone Number</label>
+                  <input
+                    required
+                    type="tel"
+                    placeholder="E.g., 077 123 4567"
+                    className="w-full bg-white/80 px-6 py-4 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-beige/30 focus:border-brand-beige-deep/40 outline-none transition-all duration-300 font-serif italic text-lg shadow-inner placeholder:text-stone-300"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Will You Attend?</label>
+                  <div className="relative group">
+                    <select
+                      className="w-full bg-white/80 px-6 py-4 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-beige/30 focus:border-brand-beige-deep/40 outline-none transition-all duration-300 appearance-none font-serif italic text-lg shadow-inner text-stone-700 cursor-pointer"
+                      value={formData.attendance}
+                      onChange={(e) => setFormData({ ...formData, attendance: e.target.value })}
+                    >
+                      {ATTENDANCE_OPTIONS.map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                    </select>
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-beige-deep transition-transform duration-300 group-hover:scale-110">
+                      <Heart className="w-5 h-5 fill-brand-beige/30 drop-shadow-sm" />
+                    </div>
+                  </div>
+                </div>
+
+                {!isDeclining && (
+                <div>
                   <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Number of Guests</label>
                   <div className="relative group">
                     <select
@@ -132,12 +171,15 @@ export const RSVPForm: React.FC = () => {
                       <option value="2">We are coming! (2 Guests)</option>
                       <option value="3">3 Guests</option>
                       <option value="4">4 Guests</option>
+                      <option value="5">5 Guests</option>
                     </select>
                     <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-beige-deep transition-transform duration-300 group-hover:scale-110">
                       <Heart className="w-5 h-5 fill-brand-beige/30 drop-shadow-sm" />
                     </div>
                   </div>
                 </div>
+
+                )}
 
                 <div>
                   <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Dietary Notes (Optional)</label>
@@ -161,6 +203,11 @@ export const RSVPForm: React.FC = () => {
                       'Confirm Attendance'
                     )}
                   </button>
+                  {status === 'error' && (
+                    <p className="text-center text-red-500 font-serif italic text-sm mt-4">
+                      Something went wrong. Please try again in a moment.
+                    </p>
+                  )}
                 </div>
               </motion.form>
             )}
